@@ -41,7 +41,7 @@ class ConvenienceTests: XCTestCase {
     }
 
     self.waitForExpectations(timeout: 0.1) { error in
-      for attribute in [NSLayoutAttribute.left, NSLayoutAttribute.right, NSLayoutAttribute.top, NSLayoutAttribute.bottom] {
+      for attribute in [NSLayoutConstraint.Attribute.left, NSLayoutConstraint.Attribute.right, NSLayoutConstraint.Attribute.top, NSLayoutConstraint.Attribute.bottom] {
         if let constraint = Helper.firstConstraint(parentView, withAttribute:attribute) {
           Helper.checkConstraint(constraint, item:childView, attribute:attribute, relation:.equal, relatedItem:parentView, relatedAttribute:attribute, constant:0.0)
         } else {
@@ -67,7 +67,7 @@ class ConvenienceTests: XCTestCase {
     }
 
     self.waitForExpectations(timeout: 0.1) { error in
-      for attribute in [NSLayoutAttribute.left, NSLayoutAttribute.right, NSLayoutAttribute.top, NSLayoutAttribute.bottom] {
+      for attribute in [NSLayoutConstraint.Attribute.left, NSLayoutConstraint.Attribute.right, NSLayoutConstraint.Attribute.top, NSLayoutConstraint.Attribute.bottom] {
         if let constraint = Helper.firstConstraint(parentView, withAttribute:attribute) {
           let constant: CGFloat
           switch attribute {
@@ -105,7 +105,7 @@ class ConvenienceTests: XCTestCase {
     }
 
     self.waitForExpectations(timeout: 0.1) { error in
-      for attribute in [NSLayoutAttribute.centerX, NSLayoutAttribute.centerY] {
+      for attribute in [NSLayoutConstraint.Attribute.centerX, NSLayoutConstraint.Attribute.centerY] {
         if let constraint = Helper.firstConstraint(parentView, withAttribute:attribute) {
           Helper.checkConstraint(constraint, item:childView, attribute:attribute, relation:.equal, relatedItem:parentView, relatedAttribute:attribute, constant:0.0)
         } else {
@@ -130,7 +130,7 @@ class ConvenienceTests: XCTestCase {
     }
 
     self.waitForExpectations(timeout: 0.1) { error in
-      for attribute in [NSLayoutAttribute.width, NSLayoutAttribute.height] {
+      for attribute in [NSLayoutConstraint.Attribute.width, NSLayoutConstraint.Attribute.height] {
         if let constraint = Helper.firstConstraint(view, withAttribute:attribute) {
           let constant: CGFloat
           switch attribute {
@@ -164,7 +164,7 @@ class ConvenienceTests: XCTestCase {
       if let constraint = Helper.firstConstraint(view, withAttribute:.height) {
         Helper.checkConstraint(constraint, item:view, attribute:.height, relation:.equal, constant:0.5)
       } else {
-        XCTFail("view is expected to have one constraint for \(NSLayoutAttribute.height)")
+        XCTFail("view is expected to have one constraint for \(NSLayoutConstraint.Attribute.height)")
       }
       XCTAssertEqual(1, view.constraints.count, "view is expected to have one constraint")
       XCTAssertNil(error, "")
@@ -184,7 +184,7 @@ class ConvenienceTests: XCTestCase {
       if let constraint = Helper.firstConstraint(view, withAttribute:.height) {
         Helper.checkConstraint(constraint, item:view, attribute:.height, relation:.equal, constant:1.0)
       } else {
-        XCTFail("view is expected to have one constraint for \(NSLayoutAttribute.height)")
+        XCTFail("view is expected to have one constraint for \(NSLayoutConstraint.Attribute.height)")
       }
       XCTAssertEqual(1, view.constraints.count, "view is expected to have one constraint")
       XCTAssertNil(error, "")
@@ -204,7 +204,7 @@ class ConvenienceTests: XCTestCase {
       if let constraint = Helper.firstConstraint(view, withAttribute:.width) {
         Helper.checkConstraint(constraint, item:view, attribute:.width, relation:.equal, constant:0.5)
       } else {
-        XCTFail("view is expected to have one constraint for \(NSLayoutAttribute.width)")
+        XCTFail("view is expected to have one constraint for \(NSLayoutConstraint.Attribute.width)")
       }
       XCTAssertEqual(1, view.constraints.count, "view is expected to have one constraint")
       XCTAssertNil(error, "")
@@ -224,7 +224,7 @@ class ConvenienceTests: XCTestCase {
       if let constraint = Helper.firstConstraint(view, withAttribute:.width) {
         Helper.checkConstraint(constraint, item:view, attribute:.width, relation:.equal, constant:1.0)
       } else {
-        XCTFail("view is expected to have one constraint for \(NSLayoutAttribute.width)")
+        XCTFail("view is expected to have one constraint for \(NSLayoutConstraint.Attribute.width)")
       }
       XCTAssertEqual(1, view.constraints.count, "view is expected to have one constraint")
       XCTAssertNil(error, "")

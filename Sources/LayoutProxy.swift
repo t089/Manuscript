@@ -39,7 +39,7 @@ extension Manuscript {
     init(view: UIView, utils:ManuscriptUtils) {
       self.view = view
       self.view.translatesAutoresizingMaskIntoConstraints = false
-      self.internalPriority = 1000
+      self.internalPriority = UILayoutPriority(rawValue: 1000)
       self.utils = utils
       super.init()
     }
@@ -49,25 +49,25 @@ extension Manuscript {
     /// Set the priority for all constraints created *after* this call to `1000`
     
     open func setPriorityRequired() {
-      self.internalPriority = 1000
+      self.internalPriority = UILayoutPriority(rawValue: 1000)
     }
     
     /// Set the priority for all constraints created *after* this call to `750`
     
     open func setPriorityDefaultHigh() {
-      self.internalPriority = 750
+      self.internalPriority = UILayoutPriority(rawValue: 750)
     }
     
     /// Set the priority for all constraints created *after* this call to `250`
     
     open func setPriorityDefaultLow() {
-      self.internalPriority = 250
+      self.internalPriority = UILayoutPriority(rawValue: 250)
     }
     
     /// Set the priority for all constraints created *after* this call to `50`
     
     open func setPriorityFittingSizeLevel() {
-      self.internalPriority = 50
+      self.internalPriority = UILayoutPriority(rawValue: 50)
     }
     
     /// Set the priority for all constraints created *after* this call to the given `priority`
@@ -75,11 +75,11 @@ extension Manuscript {
     /// - parameter priority: A UILayoutPriority a.k.a. int between 0 and 1000
     
     open func setPriority(_ priority: UILayoutPriority) {
-      if priority > 1000 {
-        self.internalPriority = 1000
+      if Int(priority.rawValue) > 1000 {
+        self.internalPriority = UILayoutPriority(rawValue: 1000)
         print("UILayoutPriority only supports values between 1 and 1000. Setting to 1000 (while trying to set the priority to \(priority)).")
-      } else if priority <= 0 {
-        self.internalPriority = 1
+      } else if Int(priority.rawValue) <= 0 {
+        self.internalPriority = UILayoutPriority(rawValue: 1)
         print("UILayoutPriority only supports values between 1 and 1000. Setting to 1 (while trying to set the priority to \(priority)).")
       } else {
         self.internalPriority = priority
@@ -98,7 +98,7 @@ extension Manuscript {
     ///
     /// - returns: a layout item whose target item is the view itself
     
-    @discardableResult open func set(_ attribute: NSLayoutAttribute, to constant: CGFloat, identifier: String? = nil) -> LayoutItem {
+    @discardableResult open func set(_ attribute: NSLayoutConstraint.Attribute, to constant: CGFloat, identifier: String? = nil) -> LayoutItem {
       return self.set(self.view, attribute: attribute, relation: .equal, constant: constant, priority: self.internalPriority, identifier: identifier)
     }
     
@@ -112,7 +112,7 @@ extension Manuscript {
     ///
     /// - returns: a layout item whose target item is the view itself
     
-    @discardableResult open func set(_ attribute: NSLayoutAttribute, toMoreThan constant: CGFloat, identifier: String? = nil) -> LayoutItem {
+    @discardableResult open func set(_ attribute: NSLayoutConstraint.Attribute, toMoreThan constant: CGFloat, identifier: String? = nil) -> LayoutItem {
       return self.set(self.view, attribute: attribute, relation: .greaterThanOrEqual, constant: constant, priority: self.internalPriority, identifier: identifier)
     }
     
@@ -126,7 +126,7 @@ extension Manuscript {
     ///
     /// - returns: a layout item whose target item is the view itself
     
-    @discardableResult open func set(_ attribute: NSLayoutAttribute, toLessThan constant: CGFloat, identifier: String? = nil) -> LayoutItem {
+    @discardableResult open func set(_ attribute: NSLayoutConstraint.Attribute, toLessThan constant: CGFloat, identifier: String? = nil) -> LayoutItem {
       return self.set(self.view, attribute: attribute, relation: .lessThanOrEqual, constant: constant, priority: self.internalPriority, identifier: identifier)
     }
     
@@ -149,7 +149,7 @@ extension Manuscript {
     /// - returns: a layout item containing the created constraint as well as the target view on
     ///           which the constraint was installed
     
-    @discardableResult open func make(_ attribute: NSLayoutAttribute, equalTo relatedItem: AnyObject, s relatedAttribute: NSLayoutAttribute, times multiplier: CGFloat = 1.0, plus constant: CGFloat = 0.0, minus negativeConstant: CGFloat = 0.0, on targetView: UIView? = nil, identifier: String? = nil) -> LayoutItem {
+    @discardableResult open func make(_ attribute: NSLayoutConstraint.Attribute, equalTo relatedItem: AnyObject, s relatedAttribute: NSLayoutConstraint.Attribute, times multiplier: CGFloat = 1.0, plus constant: CGFloat = 0.0, minus negativeConstant: CGFloat = 0.0, on targetView: UIView? = nil, identifier: String? = nil) -> LayoutItem {
       return self.make(self.view, attribute: attribute, relation: .equal, relatedItem: relatedItem, relatedItemAttribute: relatedAttribute, multiplier: multiplier, constant: constant - negativeConstant, target: targetView, priority: self.internalPriority, identifier: identifier)
     }
     
@@ -170,7 +170,7 @@ extension Manuscript {
     /// - returns: a layout item containing the created constraint as well as the target view on
     ///           which the constraint was installed
     
-    @discardableResult open func make(_ attribute: NSLayoutAttribute, greaterThan relatedItem: AnyObject, s relatedAttribute: NSLayoutAttribute, times multiplier: CGFloat = 1.0, plus constant: CGFloat = 0.0, minus negativeConstant: CGFloat = 0.0, on targetView: UIView? = nil, identifier: String? = nil) -> LayoutItem {
+    @discardableResult open func make(_ attribute: NSLayoutConstraint.Attribute, greaterThan relatedItem: AnyObject, s relatedAttribute: NSLayoutConstraint.Attribute, times multiplier: CGFloat = 1.0, plus constant: CGFloat = 0.0, minus negativeConstant: CGFloat = 0.0, on targetView: UIView? = nil, identifier: String? = nil) -> LayoutItem {
       return self.make(self.view, attribute: attribute, relation: .greaterThanOrEqual, relatedItem: relatedItem, relatedItemAttribute: relatedAttribute, multiplier: multiplier, constant: constant - negativeConstant, target: targetView, priority: self.internalPriority, identifier: identifier)
     }
     
@@ -191,7 +191,7 @@ extension Manuscript {
     /// - returns: a layout item containing the created constraint as well as the target view on
     ///           which the constraint was installed
     
-    @discardableResult open func make(_ attribute: NSLayoutAttribute, lessThan relatedItem: AnyObject, s relatedAttribute: NSLayoutAttribute, times multiplier: CGFloat = 1.0, plus constant: CGFloat = 0.0, minus negativeConstant: CGFloat = 0.0, on targetView: UIView? = nil, identifier: String? = nil) -> LayoutItem {
+    @discardableResult open func make(_ attribute: NSLayoutConstraint.Attribute, lessThan relatedItem: AnyObject, s relatedAttribute: NSLayoutConstraint.Attribute, times multiplier: CGFloat = 1.0, plus constant: CGFloat = 0.0, minus negativeConstant: CGFloat = 0.0, on targetView: UIView? = nil, identifier: String? = nil) -> LayoutItem {
       return self.make(self.view, attribute: attribute, relation: .lessThanOrEqual, relatedItem: relatedItem, relatedItemAttribute: relatedAttribute, multiplier: multiplier, constant: constant - negativeConstant, target: targetView, priority: self.internalPriority, identifier: identifier)
     }
     
@@ -293,15 +293,15 @@ extension Manuscript {
     
     // MARK: Core
     
-    fileprivate func set(_ item: UIView, attribute: NSLayoutAttribute, relation: NSLayoutRelation, constant: CGFloat, priority: UILayoutPriority, identifier: String?) -> LayoutItem {
+    fileprivate func set(_ item: UIView, attribute: NSLayoutConstraint.Attribute, relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority, identifier: String?) -> LayoutItem {
       return self.createLayoutConstraint(item, attribute: attribute, relation: relation, relatedItem: nil, relatedItemAttribute: .notAnAttribute, multiplier: 1.0, constant: constant, target: item, priority: priority, identifier: identifier)
     }
     
-    fileprivate func make(_ item: UIView, attribute: NSLayoutAttribute, relation: NSLayoutRelation, relatedItem: AnyObject, relatedItemAttribute: NSLayoutAttribute, multiplier: CGFloat, constant: CGFloat, target: UIView?, priority: UILayoutPriority, identifier: String?) -> LayoutItem {
+    fileprivate func make(_ item: UIView, attribute: NSLayoutConstraint.Attribute, relation: NSLayoutConstraint.Relation, relatedItem: AnyObject, relatedItemAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat, constant: CGFloat, target: UIView?, priority: UILayoutPriority, identifier: String?) -> LayoutItem {
       return self.createLayoutConstraint(item, attribute: attribute, relation: relation, relatedItem: relatedItem, relatedItemAttribute: relatedItemAttribute, multiplier: multiplier, constant: constant, target: target, priority: priority, identifier: identifier)
     }
     
-    fileprivate func createLayoutConstraint(_ item: UIView, attribute: NSLayoutAttribute, relation: NSLayoutRelation, relatedItem: AnyObject?, relatedItemAttribute: NSLayoutAttribute, multiplier: CGFloat, constant: CGFloat, target aTarget: UIView?, priority: UILayoutPriority, identifier: String?) -> LayoutItem {
+    fileprivate func createLayoutConstraint(_ item: UIView, attribute: NSLayoutConstraint.Attribute, relation: NSLayoutConstraint.Relation, relatedItem: AnyObject?, relatedItemAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat, constant: CGFloat, target aTarget: UIView?, priority: UILayoutPriority, identifier: String?) -> LayoutItem {
       
       let constraint = NSLayoutConstraint(
         item: item,

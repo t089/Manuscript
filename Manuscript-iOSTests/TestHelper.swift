@@ -31,10 +31,10 @@ struct Helper {
   static func checkConstraint(
     _ constraint: NSLayoutConstraint,
     item: UIView,
-    attribute: NSLayoutAttribute,
-    relation: NSLayoutRelation,
+    attribute: NSLayoutConstraint.Attribute,
+    relation: NSLayoutConstraint.Relation,
     relatedItem: UIView? = nil,
-    relatedAttribute: NSLayoutAttribute = .notAnAttribute,
+    relatedAttribute: NSLayoutConstraint.Attribute = .notAnAttribute,
     multiplier: CGFloat = 1.0,
     constant: CGFloat)
   {
@@ -50,7 +50,7 @@ struct Helper {
     }
 
     XCTAssertEqual(constraint.secondAttribute, relatedAttribute, "")
-    XCTAssertEqualWithAccuracy(constraint.multiplier, multiplier, accuracy: CGFloat(Float.ulpOfOne), "")
+    XCTAssertEqual(constraint.multiplier, multiplier, accuracy: CGFloat(Float.ulpOfOne), "")
     XCTAssertEqual(constraint.constant, constant, "")
   }
 
@@ -59,7 +59,7 @@ struct Helper {
     return random * (max - min) + min
   }
 
-  static func firstConstraint(_ view: UIView, withAttribute optionalAttribute: NSLayoutAttribute? = nil) -> NSLayoutConstraint? {
+  static func firstConstraint(_ view: UIView, withAttribute optionalAttribute: NSLayoutConstraint.Attribute? = nil) -> NSLayoutConstraint? {
     if view.constraints.count > 0 {
       for constraint in view.constraints {
         if let attribute = optionalAttribute {
@@ -75,7 +75,7 @@ struct Helper {
   }
 }
 
-extension NSLayoutAttribute : CustomStringConvertible {
+extension NSLayoutConstraint.Attribute : CustomStringConvertible {
   public var description: String {
     switch self {
     case .left:

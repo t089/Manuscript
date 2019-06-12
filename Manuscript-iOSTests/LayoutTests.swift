@@ -31,7 +31,7 @@ class LayoutTests: XCTestCase {
 
   // MARK: - Tests: SET/EQUAL
 
-  func meta_testSet(_ attribute: NSLayoutAttribute, relation: NSLayoutRelation = .equal) {
+  func meta_testSet(_ attribute: NSLayoutConstraint.Attribute, relation: NSLayoutConstraint.Relation = .equal) {
     let constant = Helper.randomFloat(max: 100.0)
     let view = UIView(frame: CGRect.zero)
     let expectation = self.expectation(description: "constraints installed")
@@ -86,7 +86,7 @@ class LayoutTests: XCTestCase {
 
   // MARK: - Tests: MAKE/EQUAL
 
-  func meta_testMake(_ attribute: NSLayoutAttribute, relation: NSLayoutRelation, relatedAttribute: NSLayoutAttribute, useTargetView: Bool) {
+  func meta_testMake(_ attribute: NSLayoutConstraint.Attribute, relation: NSLayoutConstraint.Relation, relatedAttribute: NSLayoutConstraint.Attribute, useTargetView: Bool) {
     let constant = Helper.randomFloat(max: 100.0)
     let multiplier = Helper.randomFloat(max: 2.0)
     let parentView = UIView(frame: CGRect.zero)

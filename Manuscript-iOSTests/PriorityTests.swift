@@ -48,54 +48,54 @@ class PriorityTests: XCTestCase {
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 1000, "Expected Required Priority by Default")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 1000), "Expected Required Priority by Default")
   }
 
   func testSetPriorityExplicit() {
     var layoutItem: LayoutItem? = nil
 
     Manuscript.layout(self.view) { c in
-      c.setPriority(123)
+      c.setPriority(UILayoutPriority(rawValue: 123))
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 123, "Expected explicit Priority of 123")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 123), "Expected explicit Priority of 123")
   }
 
   func testSetPriorityLowerBoundTo1() {
     var layoutItem: LayoutItem? = nil
 
     Manuscript.layout(self.view) { c in
-      c.setPriority(0)
+      c.setPriority(UILayoutPriority(rawValue: 0))
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 1, "Expected a lower cap of 1")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 1), "Expected a lower cap of 1")
   }
 
   func testSetPriorityUpperBoundTo1000() {
     var layoutItem: LayoutItem? = nil
 
     Manuscript.layout(self.view) { c in
-      c.setPriority(1001)
+      c.setPriority(UILayoutPriority(rawValue: 1001))
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 1000, "Expected a upper cap of 1000")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 1000), "Expected a upper cap of 1000")
   }
 
   func testResetPriority() {
     var layoutItem: LayoutItem? = nil
 
     Manuscript.layout(self.view) { c in
-      c.setPriority(123)
+      c.setPriority(UILayoutPriority(rawValue: 123))
       c.set(.height, to: 100.0)
 
       c.setPriorityRequired()
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 1000, "Expected Required Priority")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 1000), "Expected Required Priority")
   }
 
   func testSetPriorityRequired() {
@@ -106,7 +106,7 @@ class PriorityTests: XCTestCase {
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 1000, "Expected Required Priority (1000)")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 1000), "Expected Required Priority (1000)")
   }
 
   func testSetPriorityDefaultHigh() {
@@ -117,7 +117,7 @@ class PriorityTests: XCTestCase {
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 750, "Expected Default High Priority (750)")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 750), "Expected Default High Priority (750)")
   }
 
   func testSetPriorityDefaultLow() {
@@ -128,7 +128,7 @@ class PriorityTests: XCTestCase {
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 250, "Expected Default High Priority (250)")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 250), "Expected Default High Priority (250)")
   }
 
   func testSetPriorityFittingSizeLevel() {
@@ -139,6 +139,6 @@ class PriorityTests: XCTestCase {
       layoutItem = c.set(.width, to: 100.0)
     }
 
-    XCTAssertEqual(layoutItem!.constraint.priority, 50, "Expected Default High Priority (250)")
+    XCTAssertEqual(layoutItem!.constraint.priority, UILayoutPriority(rawValue: 50), "Expected Default High Priority (250)")
   }
 }

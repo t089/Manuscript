@@ -102,10 +102,12 @@ public struct Manuscript {
     }
   }
 
-  struct Utils: ManuscriptUtils {
-    func isRetina() -> Bool {
+  public struct Utils: ManuscriptUtils {
+    public func isRetina() -> Bool {
       return UIScreen.main.scale > 1.0
     }
+    
+    public init() {}
   }
 
   static func suffixedIdFromId(_ identifier: String?, suffix: String) -> String {

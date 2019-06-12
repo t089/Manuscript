@@ -38,7 +38,7 @@ class IdentifierTests: XCTestCase {
     var layoutItem: LayoutItem? = nil
 
     Manuscript.layout(self.view) { c in
-      c.setPriority(123)
+      c.setPriority(UILayoutPriority(rawValue: 123))
       layoutItem = c.set(.width, to: 100.0, identifier: identifier)
     }
 
